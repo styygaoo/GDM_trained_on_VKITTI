@@ -6,3 +6,6 @@ The dataset vkitti can be downloaded from the offcial website: https://europe.na
 Command for training can be for example:  python main.py --train --dataset vkitti --resolution half --model GuideDepth --data_path /HOMES/yigao/KITTI/vkitti_data/vkitti
 
 
+The virtual environment is the same as the one in the repo: https://github.com/mic-rud/GuidedDecoding
+
+

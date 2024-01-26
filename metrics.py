@@ -40,15 +40,17 @@ class Result(object):
 
     def evaluate(self, output, target):
         abs_diff = (output - target).abs()
-        print(output)
+        # print(abs_diff)
         # print(target)
         self.mse = float((torch.pow(abs_diff, 2)).mean())
         self.rmse = math.sqrt(self.mse)
         self.mae = float(abs_diff.mean())
         self.lg10 = float((log10(output) - log10(target)).abs().mean())
+        # print((log10(output) - log10(target)).abs())
+        # print("self.lg10: ", torch.isnan((log10(output) - log10(target)).abs()).any())
         self.rmse_log = math.sqrt(torch.pow(log10(output) - log10(target), 2).mean())
         self.absrel = float((abs_diff / target).mean())
-
+        # print(self.absrel)
         maxRatio = torch.max(output / target, target / output)
         self.delta1 = float((maxRatio < 1.25).float().mean())
         self.delta2 = float((maxRatio < 1.25 ** 2).float().mean())

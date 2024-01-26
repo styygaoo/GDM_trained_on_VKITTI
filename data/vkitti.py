@@ -37,10 +37,9 @@ class vKITTIDataset(MyDataloader):
         rgb_np = np.clip(rgb_np, 0.0, 1.0)
         # print(rgb_np)
 
-        depth_np = depth.astype(np.float32)
-        zero_mask = depth_np == 0.0
+        # depth_np = depth.astype(np.float32)
 
-        depth_np = transform(depth_np)
+        depth_np = transform(depth)
         # depth is given in cm
         # set maximum depth of 80m / 8000 cm
         depth_np[depth_np > 8000] = 8000
@@ -56,7 +55,6 @@ class vKITTIDataset(MyDataloader):
 
         depth_np = 80 / depth_np
 
-        depth[zero_mask] = 0.0
         # print(rgb_np)
         return rgb_np, depth_np
 
@@ -75,7 +73,7 @@ class vKITTIDataset(MyDataloader):
         # depth is given in cm
         # set maximum depth of 80m / 8000 cm
         depth_np[depth_np > 8000] = 8000
+        depth_np[depth_np < 0] = 0.0
         # scale to m
         depth_np = depth_np * 1e-2
-
         return rgb_np, depth_np
